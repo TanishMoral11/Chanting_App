@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/full"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:layout_alignParentTop="true"
+    >
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true" /> <!-- Set this to align to the top -->
+
+    <!-- TextView to display count -->
+    <TextView
+        android:id="@+id/countTextView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="0"
+        android:textSize="50sp"
+        android:textColor="@android:color/black"
+        android:background="@drawable/circular_background" />
+
+    <!-- Reset Button -->
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/countTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-51dp"
+        android:layout_marginEnd="285dp"
+        android:text="Reset"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <!-- Add any other views here if needed -->
+
+</RelativeLayout>
