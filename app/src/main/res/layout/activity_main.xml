@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:layout_alignParentTop="true"
-    >
+    android:layout_alignParentTop="true">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
@@ -14,24 +13,41 @@
         android:layout_alignParentTop="true" /> <!-- Set this to align to the top -->
 
     <!-- TextView to display count -->
-    <TextView
-        android:id="@+id/countTextView"
+    <RelativeLayout
+        android:id="@+id/countLayout"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/countTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="50sp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/circular_background" />
+
+        <TextView
+            android:id="@+id/roundsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countTextView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-30dp"
         android:text="0"
-        android:textSize="50sp"
-        android:textColor="@android:color/black"
-        android:background="@drawable/circular_background" />
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
+    </RelativeLayout>
 
     <!-- Reset Button -->
     <Button
         android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/countTextView"
+        android:layout_below="@id/countLayout"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="-51dp"
         android:layout_marginEnd="285dp"

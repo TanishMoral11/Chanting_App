@@ -1,16 +1,18 @@
 package com.example.chantingapp
+
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Button
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 
 class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickListener {
 
-    private var count = 0
+    private var count = 107
+    private var rounds = 0
     private lateinit var countTextView: TextView
+    private lateinit var roundsTextView: TextView
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var viewPager: ViewPager
     private lateinit var adapter: BackgroundPagerAdapter
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
 
         // Initialize views
         countTextView = findViewById(R.id.countTextView)
+        roundsTextView = findViewById(R.id.roundsTextView)
         val resetButton = findViewById<Button>(R.id.resetButton)
         viewPager = findViewById(R.id.viewPager)
         adapter = BackgroundPagerAdapter(this, backgroundImages, this)
@@ -40,8 +43,9 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
 
         // Set click listener for reset button
         resetButton.setOnClickListener {
-            // Reset count to 0
-            count = 0
+            // Reset count and rounds
+            count = 107
+            rounds = 0
             updateCount()
         }
 
@@ -52,17 +56,21 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
     override fun onImageClick(position: Int) {
         // Increment count and update TextView
         count++
+        if (count == 108) {
+            // Increment rounds and reset count
+            rounds++
+            count = 0
+        }
         updateCount()
     }
 
     private fun updateCount() {
-        if (count == 108) {
-            // Play sound
+        // Play sound if a round is completed
+        if (count == 0 && rounds > 0) {
             mediaPlayer.start()
-            // Reset count
-            count = 0
         }
         countTextView.text = count.toString()
+        roundsTextView.text = rounds.toString()
     }
 
     override fun onDestroy() {
