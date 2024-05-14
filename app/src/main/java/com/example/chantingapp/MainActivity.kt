@@ -1,5 +1,6 @@
 package com.example.chantingapp
-
+import android.content.Context
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Button
@@ -9,13 +10,14 @@ import androidx.viewpager.widget.ViewPager
 
 class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickListener {
 
-    private var count = 107
-    private var rounds = 0
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var countTextView: TextView
     private lateinit var roundsTextView: TextView
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var viewPager: ViewPager
     private lateinit var adapter: BackgroundPagerAdapter
+    private var count = 0
+    private var rounds = 0
     private val backgroundImages = listOf(
         R.drawable.pxfuel,
         R.drawable.imageone,
@@ -27,7 +29,8 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize views
+        sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+
         countTextView = findViewById(R.id.countTextView)
         roundsTextView = findViewById(R.id.roundsTextView)
         val resetButton = findViewById<Button>(R.id.resetButton)
@@ -35,29 +38,38 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         adapter = BackgroundPagerAdapter(this, backgroundImages, this)
         viewPager.adapter = adapter
 
-        // Initialize MediaPlayer
         mediaPlayer = MediaPlayer.create(this, R.raw.sound)
 
-        // Set initial count
-        updateCount()
-
-        // Set click listener for reset button
         resetButton.setOnClickListener {
-            // Reset count and rounds
-            count = 107
+            count = 0
             rounds = 0
             updateCount()
         }
 
-        // Set current item to a large number to enable looping effect
         viewPager.currentItem = Int.MAX_VALUE / 2
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Load count and round count from SharedPreferences
+        count = sharedPreferences.getInt("count", 107)
+        rounds = sharedPreferences.getInt("rounds", 0)
+        updateCount()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Save count and round count to SharedPreferences
+        sharedPreferences.edit().apply {
+            putInt("count", count)
+            putInt("rounds", rounds)
+            apply()
+        }
+    }
+
     override fun onImageClick(position: Int) {
-        // Increment count and update TextView
         count++
         if (count == 108) {
-            // Increment rounds and reset count
             rounds++
             count = 0
         }
@@ -65,7 +77,6 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
     }
 
     private fun updateCount() {
-        // Play sound if a round is completed
         if (count == 0 && rounds > 0) {
             mediaPlayer.start()
         }
@@ -75,7 +86,6 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
 
     override fun onDestroy() {
         super.onDestroy()
-        // Release MediaPlayer resources
         mediaPlayer.release()
     }
 }
