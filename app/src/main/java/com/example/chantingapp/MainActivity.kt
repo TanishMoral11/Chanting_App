@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
     override fun onResume() {
         super.onResume()
         // Load count and round count from SharedPreferences
-        count = sharedPreferences.getInt("count", 107)
+        count = sharedPreferences.getInt("count", 0)
         rounds = sharedPreferences.getInt("rounds", 0)
         updateCount()
     }
