@@ -6,55 +6,87 @@
     tools:context=".MainActivity"
     android:layout_alignParentTop="true">
 
+    <!-- Set this to align to the top -->
+
+    <!-- TextView to display count -->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true" /> <!-- Set this to align to the top -->
-
-    <!-- TextView to display count -->
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="-2dp"
+        android:layout_marginEnd="0dp" />
     <RelativeLayout
-        android:id="@+id/countLayout"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
-
-        <TextView
-            android:id="@+id/countTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="0"
-            android:textSize="50sp"
-            android:textColor="@android:color/black"
-            android:background="@drawable/circular_background" />
-
-        <TextView
-            android:id="@+id/roundsTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/countTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-30dp"
-        android:text="0"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"/>
-    </RelativeLayout>
-
-    <!-- Reset Button -->
-    <Button
-        android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/countLayout"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-51dp"
-        android:layout_marginEnd="285dp"
-        android:text="Reset"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+        >
+        <Button
+            android:id="@+id/resetButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/countLayout"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-51dp"
+            android:layout_marginEnd="285dp"
+            android:text="Reset"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+        <RelativeLayout
+            android:id="@+id/countLayout"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
 
-    <!-- Add any other views here if needed -->
+            <TextView
+                android:id="@+id/countTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circular_background"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@android:color/black"
+                android:textSize="50sp" />
+
+            <TextView
+                android:id="@+id/roundsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/countTextView"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="-30dp"
+                android:text="0"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/streakTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/countLayout"
+            android:layout_alignBottom="@id/countLayout"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@id/countLayout"
+            android:text="Streak: 0"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/rounded_corner_background"
+            android:paddingLeft="10sp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginRight="5sp"
+            />
+
+
+        <!-- Reset Button -->
+
+
+        <!-- Add any other views here if needed -->
+
+    </RelativeLayout>
+
 
 </RelativeLayout>
