@@ -21,10 +21,12 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var viewPager: ViewPager
     private lateinit var adapter: BackgroundPagerAdapter
+
     private var count = 0
     private var rounds = 0
     private var streak = 0
-    private val backgroundImages = listOf(
+
+    private val backgroundImages = intArrayOf(
         R.drawable.pxfuel,
         R.drawable.imageone,
         R.drawable.imagetwo,
@@ -40,21 +42,20 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         countTextView = findViewById(R.id.countTextView)
         roundsTextView = findViewById(R.id.roundsTextView)
         streakTextView = findViewById(R.id.streakTextView)
-        val resetButton = findViewById<Button>(R.id.resetButton)
+        val resetButton: Button = findViewById(R.id.resetButton)
         viewPager = findViewById(R.id.viewPager)
-        adapter = BackgroundPagerAdapter(this, backgroundImages, this)
+        adapter = BackgroundPagerAdapter(this, backgroundImages.toList(), this)
         viewPager.adapter = adapter
 
         mediaPlayer = MediaPlayer.create(this, R.raw.sound)
 
         resetButton.setOnClickListener {
-            count = 107
+            count = 0
             rounds = 0
-
             updateCount()
         }
 
-        viewPager.currentItem = backgroundImages.size * 10 // Set to a more reasonable value
+        viewPager.currentItem = Integer.MAX_VALUE / 2 // Start at the middle
     }
 
     override fun onResume() {
@@ -118,12 +119,11 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
     }
 
     private fun saveCounts() {
-        sharedPreferences.edit().apply {
-            putInt("count", count)
-            putInt("rounds", rounds)
-            putInt("streak", streak)
-            apply()
-        }
+        sharedPreferences.edit()
+            .putInt("count", count)
+            .putInt("rounds", rounds)
+            .putInt("streak", streak)
+            .apply()
     }
 
     private fun getCurrentDate(): String {
@@ -134,12 +134,12 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
 
     private fun getDaysPassed(lastDate: String, currentDate: String): Int {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val last = dateFormat.parse(lastDate)
-        val current = dateFormat.parse(currentDate)
-        return if (last != null && current != null) {
-            val difference = current.time - last.time
-            (difference / (1000 * 60 * 60 * 24)).toInt()
-        } else {
+        return try {
+            val last = dateFormat.parse(lastDate)?.time ?: 0L
+            val current = dateFormat.parse(currentDate)?.time ?: 0L
+            ((current - last) / (1000 * 60 * 60 * 24)).toInt()
+        } catch (e: Exception) {
+            e.printStackTrace()
             0
         }
     }

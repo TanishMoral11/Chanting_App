@@ -1,4 +1,5 @@
 package com.example.chantingapp;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +26,7 @@ public class BackgroundPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return backgroundImages.size();
+        return Integer.MAX_VALUE; // Simulate infinite scrolling
     }
 
     @Override
@@ -40,19 +41,17 @@ public class BackgroundPagerAdapter extends PagerAdapter {
         View itemView = inflater.inflate(R.layout.item_background, container, false);
 
         ImageView imageView = itemView.findViewById(R.id.imageView);
-        imageView.setImageResource(backgroundImages.get(position));
+        // Calculate the actual position
+        int actualPosition = position % backgroundImages.size();
+        imageView.setImageResource(backgroundImages.get(actualPosition));
 
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (imageClickListener != null) {
-                    imageClickListener.onImageClick(position);
-                }
+        imageView.setOnClickListener(v -> {
+            if (imageClickListener != null) {
+                imageClickListener.onImageClick(actualPosition);
             }
         });
 
         container.addView(itemView);
-
         return itemView;
     }
 

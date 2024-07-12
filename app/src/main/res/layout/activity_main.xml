@@ -6,9 +6,6 @@
     tools:context=".MainActivity"
     android:layout_alignParentTop="true">
 
-    <!-- Set this to align to the top -->
-
-    <!-- TextView to display count -->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
@@ -17,10 +14,11 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="-2dp"
         android:layout_marginEnd="0dp" />
+
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <Button
             android:id="@+id/resetButton"
             android:layout_width="wrap_content"
@@ -33,6 +31,7 @@
             android:textColor="@color/black"
             android:background="@drawable/rounded_corner_background"
             android:textSize="20sp" />
+
         <RelativeLayout
             android:id="@+id/countLayout"
             android:layout_width="100dp"
@@ -59,7 +58,7 @@
                 android:layout_marginTop="-30dp"
                 android:text="0"
                 android:textSize="16sp"
-                android:textColor="@android:color/black"/>
+                android:textColor="@android:color/black" />
         </RelativeLayout>
 
         <TextView
@@ -78,16 +77,7 @@
             android:background="@drawable/rounded_corner_background"
             android:paddingLeft="10sp"
             android:layout_marginBottom="7dp"
-            android:layout_marginRight="5sp"
-            />
-
-
-        <!-- Reset Button -->
-
-
-        <!-- Add any other views here if needed -->
-
+            android:layout_marginRight="5sp" />
     </RelativeLayout>
-
 
 </RelativeLayout>
