@@ -48,13 +48,13 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         mediaPlayer = MediaPlayer.create(this, R.raw.sound)
 
         resetButton.setOnClickListener {
-            count = 0
+            count = 107
             rounds = 0
 
             updateCount()
         }
 
-        viewPager.currentItem = Int.MAX_VALUE / 2
+        viewPager.currentItem = backgroundImages.size * 10 // Set to a more reasonable value
     }
 
     override fun onResume() {
@@ -93,9 +93,8 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         val lastChantDate = sharedPreferences.getString("lastChantDate", null)
         if (lastChantDate != null) {
             val daysPassed = getDaysPassed(lastChantDate, currentDate)
-            streak = if (daysPassed == 1) streak + 1 else return
+            streak = if (daysPassed == 1) streak + 1 else streak
         } else {
-
             streak = 1
         }
         sharedPreferences.edit().putString("lastChantDate", currentDate).apply()
@@ -137,8 +136,12 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val last = dateFormat.parse(lastDate)
         val current = dateFormat.parse(currentDate)
-        val difference = current.time - last.time
-        return (difference / (1000 * 60 * 60 * 24)).toInt()
+        return if (last != null && current != null) {
+            val difference = current.time - last.time
+            (difference / (1000 * 60 * 60 * 24)).toInt()
+        } else {
+            0
+        }
     }
 
     override fun onDestroy() {
