@@ -93,8 +93,9 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         val lastChantDate = sharedPreferences.getString("lastChantDate", null)
         if (lastChantDate != null) {
             val daysPassed = getDaysPassed(lastChantDate, currentDate)
-            streak = if (daysPassed == 1) streak + 1 else 1
+            streak = if (daysPassed == 1) streak + 1 else return
         } else {
+
             streak = 1
         }
         sharedPreferences.edit().putString("lastChantDate", currentDate).apply()
