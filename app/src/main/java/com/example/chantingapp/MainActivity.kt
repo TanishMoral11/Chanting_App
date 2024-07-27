@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
     private var count = 0
     private var rounds = 0
     private var streak = 0
-
     private val backgroundImages = intArrayOf(
         R.drawable.pxfuel,
         R.drawable.imageone,
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         }
         countTextView.text = count.toString()
         roundsTextView.text = rounds.toString()
-        streakTextView.text = "Streak: $streak"
+        streakTextView.text = "Streak: $streak" // Remove the maxOf function
     }
 
     private fun updateStreak() {
@@ -94,9 +93,9 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         val lastChantDate = sharedPreferences.getString("lastChantDate", null)
         if (lastChantDate != null) {
             val daysPassed = getDaysPassed(lastChantDate, currentDate)
-            streak = if (daysPassed == 1) streak + 1 else streak
+            streak = if (daysPassed == 1) minOf(streak + 1, 100) else streak
         } else {
-            streak = 1
+            streak = 1 // Change this back to 1 instead of 10
         }
         sharedPreferences.edit().putString("lastChantDate", currentDate).apply()
     }

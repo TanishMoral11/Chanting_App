@@ -1,43 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/full"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:layout_alignParentTop="true">
+    tools:context=".MainActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-2dp"
-        android:layout_marginEnd="0dp" />
+        android:layout_height="match_parent" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp">
 
         <Button
             android:id="@+id/resetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/countLayout"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="-51dp"
-            android:layout_marginEnd="285dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/rounded_corner_background"
             android:text="Reset"
             android:textColor="@color/black"
-            android:background="@drawable/rounded_corner_background"
-            android:textSize="20sp" />
+            android:backgroundTint="@color/Violet"
+            android:textSize="16sp" />
 
         <RelativeLayout
             android:id="@+id/countLayout"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true">
+            android:layout_centerInParent="true">
 
             <TextView
                 android:id="@+id/countTextView"
@@ -46,7 +42,7 @@
                 android:background="@drawable/circular_background"
                 android:gravity="center"
                 android:text="0"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:textSize="50sp" />
 
             <TextView
@@ -57,27 +53,22 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="-30dp"
                 android:text="0"
-                android:textSize="16sp"
-                android:textColor="@android:color/black" />
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <TextView
             android:id="@+id/streakTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/countLayout"
-            android:layout_alignBottom="@id/countLayout"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@id/countLayout"
-            android:text="Streak: 0"
-            android:textColor="@android:color/black"
-            android:textSize="30sp"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/rounded_corner_background"
-            android:paddingLeft="10sp"
-            android:layout_marginBottom="7dp"
-            android:layout_marginRight="5sp" />
+            android:backgroundTint="@color/Violet"
+            android:padding="8dp"
+            android:text="Streak: 0"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
     </RelativeLayout>
 
 </RelativeLayout>
