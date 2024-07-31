@@ -26,7 +26,7 @@
             android:background="@drawable/rounded_corner_background"
             android:text="Reset"
             android:textColor="@color/black"
-            android:backgroundTint="@color/Violet"
+            android:backgroundTint="@color/button_color"
             android:textSize="16sp" />
 
         <RelativeLayout
@@ -64,7 +64,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:background="@drawable/rounded_corner_background"
-            android:backgroundTint="@color/Violet"
+            android:backgroundTint="@color/button_color"
             android:padding="8dp"
             android:text="Streak: 0"
             android:textColor="@color/black"
