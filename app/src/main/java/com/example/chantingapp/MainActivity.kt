@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         viewPager = findViewById(R.id.viewPager)
 
 
+
         // Initialize the ViewPager adapter
         adapter = BackgroundPagerAdapter(this, backgroundImages.toList(), this)
         viewPager.adapter = adapter
