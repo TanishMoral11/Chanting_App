@@ -1,31 +1,26 @@
 package com.example.chantingapp
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.view.animation.DecelerateInterpolator
 import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import java.util.*
 
 class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickListener {
 
     private lateinit var sharedPreferences: SharedPreferences
-
     private lateinit var countTextView: TextView
     private lateinit var roundsTextView: TextView
     private lateinit var streakTextView: TextView
     private lateinit var mediaPlayer: MediaPlayer
     private lateinit var viewPager: ViewPager
     private lateinit var adapter: BackgroundPagerAdapter
-    private lateinit var progressBar: ProgressBar
+    private lateinit var beadProgressView: BeadProgressView
 
     private var count = 0
     private var rounds = 0
@@ -42,15 +37,12 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        progressBar = findViewById(R.id.progressBar)
-        progressBar.max = 108
-        progressBar.progress = 0
-
         sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
         countTextView = findViewById(R.id.countTextView)
         roundsTextView = findViewById(R.id.roundsTextView)
         streakTextView = findViewById(R.id.streakTextView)
+        beadProgressView = findViewById(R.id.beadProgressView)
         val resetButton: Button = findViewById(R.id.resetButton)
         viewPager = findViewById(R.id.viewPager)
 
@@ -62,7 +54,7 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         resetButton.setOnClickListener {
             count = 0
             rounds = 0
-            progressBar.progress = 0
+            beadProgressView.setProgress(0)
             updateCount()
         }
 
@@ -83,23 +75,16 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
 
     override fun onImageClick(position: Int) {
         count++
-        animateProgressBar(count)
+        beadProgressView.setProgress(count)
 
         if (count == 108) {
             rounds++
             count = 0
-            animateProgressBar(0)
+            beadProgressView.setProgress(0)
             updateStreak()
         }
 
         updateCount()
-    }
-
-    private fun animateProgressBar(newProgress: Int) {
-        val animator = ObjectAnimator.ofInt(progressBar, "progress", progressBar.progress, newProgress)
-        animator.duration = 300 // Duration of the animation in milliseconds
-        animator.interpolator = DecelerateInterpolator()
-        animator.start()
     }
 
     private fun updateCount() {
@@ -109,9 +94,6 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         countTextView.text = count.toString()
         roundsTextView.text = rounds.toString()
         streakTextView.text = "Streak: $streak"
-        // Update progress percentage
-        val progressPercentage = (count.toFloat() / 108 * 100).toInt()
-        progressBar.contentDescription = "$progressPercentage% completed"
     }
 
     private fun updateStreak() {
@@ -141,6 +123,7 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         count = sharedPreferences.getInt("count", 0)
         rounds = sharedPreferences.getInt("rounds", 0)
         streak = sharedPreferences.getInt("streak", 0)
+        beadProgressView.setProgress(count)
     }
 
     private fun saveCounts() {

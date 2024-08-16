@@ -5,6 +5,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="Violet">#674FA5</color>
     <color name="progress_color">#FF0000</color>
+    <color name="bead_filled">#FF4081</color>
+    <color name="bead_empty">#FFFFFFFF</color>
 
 
 </resources>
