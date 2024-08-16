@@ -162,7 +162,15 @@ class MainActivity : AppCompatActivity(), BackgroundPagerAdapter.OnImageClickLis
         return try {
             val last = dateFormat.parse(lastDate)?.time ?: 0L
             val current = dateFormat.parse(currentDate)?.time ?: 0L
-            ((current - last) / (1000 * 60 * 60 * 24)).toInt()
+            val dayspassed = ((current - last) / (1000 * 60 * 60 * 24)).toInt()
+
+            if(dayspassed>=2){
+                0
+            }
+            else {
+                dayspassed
+            }
+
         } catch (e: Exception) {
             e.printStackTrace()
             0
